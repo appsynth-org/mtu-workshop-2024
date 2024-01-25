@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Manager</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Job Manager</h1>
+    </header>
+  
+    <main>
+      <section class="add-todo">
+        <h2>Add Job</h2>
+        <form onsubmit="addTodo(); return false;">
+          <input type="text" id="nameInput" placeholder="Your name">
+          <input type="text" id="todoInput" placeholder="New Job">
+          <button type="submit">Add Job</button>
+        </form>
+      </section>
+  
+      <section class="pagination">
+        <h2>Pagination</h2>
+        <form onsubmit="fetchTodosByPage(document.getElementById('pageInput').value); return false;">
+          <input type="number" id="pageInput" placeholder="Enter page number" min="1" step="1" value="1" required style="width: 35px;">
+          <button type="submit">Fetch Job</button>
+          <span id="totalPages"></span>
+        </form>
+        <div id="paginationResults">
+          <h2>Todos for Page</h2>
+          <ul id="paginationList"></ul>
+        </div>
+      </section>
+  
+      <section class="query-tasks">
+        <h2>Query Job by Name</h2>
+        <form onsubmit="queryTasks(); return false;">
+          <input type="text" id="queryName" placeholder="Name">
+          <button type="submit">Query Job</button>
+        </form>
+        <div id="queryResults">
+          <h2>Job by Name</h2>
+          <ul id="queryList"></ul>
+        </div>
+      </section>
+    </main>
+  
+    <footer>
+      &copy; 2024 Task Manager
+    </footer>
+  
+    <script src="script.js"></script>
+  
+
+  <script>
+    async function addTodo() {
+      const nameInput = document.getElementById('nameInput');
+      const todoInput = document.getElementById('todoInput');
+      const name = nameInput.value;
+      const description = todoInput.value;
+  
+      if (name.trim() !== '' && description.trim() !== '') {
+        await fetch('/api/todos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, description }),
+        });
+        nameInput.value = '';
+        todoInput.value = '';
+      }
+      fetchTodosByPage();
+    }
+
+    async function editTodoById(id) {
+      const name = prompt('Enter new name:');
+      const description = prompt('Enter new description:');
+
+      if (name !== null && description !== null) {
+        await fetch(`/api/todos/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, description }),
+        });
+        fetchTodosByPage();
+      }
+    }
+
+    async function deleteTodo() {
+      const deleteIdInput = document.getElementById('deleteId');
+      const id = deleteIdInput.value;
+
+      if (!isNaN(id) && id > 0) {
+        await fetch(`/api/todos/${id}`, {
+          method: 'DELETE',
+        });
+        fetchTodosByPage();
+      }
+    }
+    
+    async function queryTasks() {
+      const queryNameInput = document.getElementById('queryName');
+      const queryName = queryNameInput.value;
+
+      if (queryName.trim() !== '') {
+        const response = await fetch(`/api/todos-by-name/${encodeURIComponent(queryName)}`);
+        const tasks = await response.json();
+        
+        const queryList = document.getElementById('queryList');
+        queryList.innerHTML = '';
+
+        tasks.forEach(task => {
+          const li = document.createElement('li');
+          li.textContent = `${task.name}: ${task.description}`;
+          queryList.appendChild(li);
+        });
+      }
+    }
+    async function fetchTodosByPage(page = 1) {
+      const response = await fetch(`/api/todos?page=${page}`);
+      const result = await response.json();
+      
+      const todos = result.todos;
+      const totalPages = result.totalPages;
+
+      const paginationList = document.getElementById('paginationList');
+      paginationList.innerHTML = '';
+
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.onclick = () => editTodoById(todo.id);
+        editButton.style.backgroundColor = 'blue'; // Set the background color to blue
+        li.appendChild(editButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = () => deleteTodoById(todo.id);
+        deleteButton.style.backgroundColor = 'red'; // Set the background color to red
+        li.appendChild(deleteButton);
+
+        li.appendChild(document.createTextNode(` [${todo.id}] ${todo.name}: ${todo.description}`));
+
+        paginationList.appendChild(li);
+      });
+
+      // Update the UI to show total pages
+      const totalPagesSpan = document.getElementById('totalPages');
+      totalPagesSpan.textContent = `of ${totalPages} pages`;
+    }
+
+    async function deleteTodoById(id) {
+      const confirmed = confirm('Are you sure you want to delete this todo?');
+      if (confirmed) {
+        await fetch(`/api/todos/${id}`, {
+          method: 'DELETE',
+        });
+        fetchTodosByPage();
+      }
+    }
+
+  fetchTodosByPage();
+  </script>
+</body>
+</html>
