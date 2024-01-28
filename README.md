@@ -1,6 +1,4 @@
-# Task Manager Web App
-
-This is a simple web app for managing tasks. It provides functionalities to add tasks, paginate through tasks, and query tasks by name.
+# MTUxKU: Employee API
 
 ## Getting Started
 
@@ -11,7 +9,6 @@ This is a simple web app for managing tasks. It provides functionalities to add 
 - Node.js
 - PostgreSQL
 
-
 ## clone the repository:
 
 ```bash
@@ -19,9 +16,7 @@ git clone https://github.com/mtu-workshop-2024.git
 
 ```
 
-# MTUxKU: Employee API
-
-## Lesson2-scaling
+## Lesson1-Dabase-index
 
 ### First, Run the project
 ```bash
@@ -45,26 +40,28 @@ SELECT COUNT(id) FROM employees_indexed WHERE department LIKE '%pov%';
 SELECT id, name, phone_number, join_date FROM employees WHERE name = 'Aaron Myers' AND phone_number = '(711) 968-3455' AND join_date = '2019-06-24' LIMIT 100 OFFSET 0;
 ```
 
-## Lesson2-scaling
+## Lesson2-Scaling
 
 ### Prerequisites & install
 
 edit hostfile
+
 ```bash
 $ vim /etc/hosts
 ```
 
-add hostnamefile
+edit hostname file and add hostname to the file
+
 ```
 127.0.0.1       whoami.local
 ```
 
-run command
+command
 ```bash
 $ docker-compose up -d
 ```
 
-curl for check host
+check host
 ```bash
 curl whoami.local
 ```
@@ -73,7 +70,7 @@ scale up server
 ```bash
 $ docker-compose up -d --scale whoami=3
 ```
-curl for check host
+check host
 ```bash
 curl whoami.local
 ```
