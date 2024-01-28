@@ -1,13 +1,13 @@
-version: '3'
+version: "3"
 
 services:
-  postgres:
+  postgresdb:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: employees
     ports:
       - "5432:5432"
   pgadmin:
@@ -17,10 +17,10 @@ services:
     ports:
       - "8888:80"
     depends_on:
-      - postgres
+      - postgresdb
     environment:
-      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
-      PGADMIN_DEFAULT_PASSWORD: your_password
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
   webapp:
     build:
       context: .
@@ -29,11 +29,11 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - postgres
+      - postgresdb
     environment:
-      PGHOST: postgres
-      PGUSER: your_username
-      PGPASSWORD: your_password
-      PGDATABASE: your_database
+      PGHOST: postgresdb
+      PGUSER: postgres
+      PGPASSWORD: "123456"
+      PGDATABASE: employees
       PGPORT: 5432
       PORT: 3000
