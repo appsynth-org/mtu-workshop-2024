@@ -16,7 +16,7 @@ git clone https://github.com/mtu-workshop-2024.git
 
 ```
 
-## Lesson1-Dabase-index
+## Lesson1-Database-index
 
 ### First, Run the project
 ```bash
