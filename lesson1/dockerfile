@@ -1,8 +1,9 @@
 FROM node:latest
 
-WORKDIR /usr/src/app
-COPY public ./public
+WORKDIR /usr/app
 COPY package*.json ./
+COPY *.json ./
+COPY src /usr/app/src
 RUN npm install
 COPY . .
-CMD ["node", "server.js"]
+CMD ["npm", "start"]

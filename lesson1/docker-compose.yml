@@ -36,3 +36,4 @@ services:
       PGPASSWORD: your_password
       PGDATABASE: your_database
       PGPORT: 5432
+      PORT: 3000
