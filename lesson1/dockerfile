@@ -2,8 +2,8 @@ FROM node:latest
 
 WORKDIR /usr/app
 COPY package*.json ./
-COPY *.json ./
+COPY *.js ./
 COPY src /usr/app/src
 RUN npm install
-COPY . .
+COPY .env ./
 CMD ["npm", "start"]

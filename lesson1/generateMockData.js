@@ -45,6 +45,7 @@ const insertMockEmployees = async (count, pool) => {
   const { pool } = await initDatabase();
 
   // Change the value of 'employeeCount' to specify the number of mock employees to generate and insert
-  const employeeCount = 1;
+  const args = process.argv.slice(2)
+  const employeeCount = parseInt(args[0]) || 10
   insertMockEmployees(employeeCount, pool);
 })();

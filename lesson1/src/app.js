@@ -1,4 +1,5 @@
 const express = require('express');
+const publicRoutes = require('./routes/publicRoutes')
 const employeeRoutes = require('./routes/employeeRoutes')
 const employeeCachedRoutes = require('./routes/employeeCachedRoutes')
 const { initDatabase } = require('./dbInit');
@@ -13,6 +14,7 @@ async function startServer() {
 
     app.use(express.json());
 
+    app.use('/', publicRoutes());
     app.use('/api/employees', employeeRoutes());
     app.use('/api/cached/employees', employeeCachedRoutes());
 
