@@ -5,7 +5,7 @@ services:
     image: redis:latest
     restart: always
     ports:
-      - "6380"
+      - "6379"
   postgresdb:
     image: postgres:latest
     restart: always
@@ -42,7 +42,7 @@ services:
       PGPASSWORD: "123456"
       PGDATABASE: employees
       PGPORT: 5432
-      REDIS_URL: redis://redis:6380
+      REDIS_URL: redis://redis:6379
       PORT: 3000
       VIRTUAL_PORT: 3000
       VIRTUAL_HOST: employees.local
