@@ -1,14 +1,54 @@
-version: '2'
+version: "3"
 
 services:
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6380"
+  postgresdb:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: employees
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    depends_on:
+      - postgresdb
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+  webapp:
+    build:
+      context: ../lesson1
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000"
+    depends_on:
+      - postgresdb
+      - redis
+    environment:
+      PGHOST: postgresdb
+      PGUSER: postgres
+      PGPASSWORD: "123456"
+      PGDATABASE: employees
+      PGPORT: 5432
+      REDIS_URL: redis://redis:6380
+      PORT: 3000
+      VIRTUAL_PORT: 3000
+      VIRTUAL_HOST: employees.local
   nginx-proxy:
     image: nginxproxy/nginx-proxy
     ports:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  whoami:
-    image: jwilder/whoami
-    environment:
-      - VIRTUAL_HOST=whoami.example
