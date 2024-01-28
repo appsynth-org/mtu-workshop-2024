@@ -24,7 +24,7 @@ async function startServer() {
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
-    console.error('Error initializing the database:', error);
+    console.error('Error initializing the server:', error);
     process.exit(1); // Exit the application on database initialization failure
   }
 }

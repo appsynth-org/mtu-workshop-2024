@@ -5,5 +5,4 @@ COPY package*.json ./
 COPY *.js ./
 COPY src /usr/app/src
 RUN npm install
-COPY .env ./
 CMD ["npm", "start"]
