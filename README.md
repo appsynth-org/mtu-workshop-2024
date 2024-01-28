@@ -58,7 +58,7 @@ edit hostname file and add hostname to the file
 
 command
 ```bash
-$ docker-compose up -d
+$ docker-compose up -d --build
 ```
 
 check host
@@ -68,7 +68,7 @@ curl employees.local
 
 scale up server
 ```bash
-$ docker-compose up -d --scale whoami=3
+$ docker-compose up -d --build --scale webapp=3
 ```
 check host
 ```bash
