@@ -1,6 +1,8 @@
 const { createClient } = require('redis')
 
-const client = createClient()
+const client = createClient({
+  url: process.env.REDIS_URL || 'redis://localhost:6379'
+})
 
 const initCacheDatabase = async () => {
   try {

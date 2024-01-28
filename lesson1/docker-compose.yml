@@ -1,6 +1,11 @@
 version: "3"
 
 services:
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379"
   postgresdb:
     image: postgres:latest
     restart: always
@@ -30,10 +35,12 @@ services:
       - "3000:3000"
     depends_on:
       - postgresdb
+      - redis
     environment:
       PGHOST: postgresdb
       PGUSER: postgres
       PGPASSWORD: "123456"
       PGDATABASE: employees
       PGPORT: 5432
+      REDIS_URL: redis://redis:6379
       PORT: 3000
