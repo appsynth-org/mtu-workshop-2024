@@ -136,6 +136,7 @@ $ while true; do sleep 1; curl employees.local; echo; done
 ```
 
 ```should see the status 200 ok and hostname that is container id randomly```
+
 ex.
 ```
 {"status":"OK","hostname":"3d99b5c8fc27"}
