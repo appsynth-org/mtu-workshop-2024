@@ -104,7 +104,7 @@ Note: if it's fail or cannot start service you can use this command for check th
 $ docker-compose logs -f --tail 100
 ```
 
-- Nexts, open web brower to check the status service
+- Next, open web brower to check the status service
 ```
 http://employess.local
 ```
@@ -119,8 +119,6 @@ ex.
 ```
 {"status":"OK","hostname":"3d99b5c8fc27"}
 ```
-
-
 
 #### For Test scale up services and verify
 - scale service up to 3
