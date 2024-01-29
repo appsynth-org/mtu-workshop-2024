@@ -2,18 +2,16 @@
 
 ## Getting Started
 
-### Prerequisites & install
+### Prerequisites & install 
+- docker,docker-compose
+- vscode
 
-- Docker
-- Docker Compose
-- Node.js
-- PostgreSQL
+```goto lesson0```
 
 ## clone the repository:
 
 ```bash
 git clone https://github.com/mtu-workshop-2024.git
-
 ```
 
 ## Lesson1-Database-index
@@ -42,38 +40,96 @@ SELECT id, name, phone_number, join_date FROM employees WHERE name = 'Aaron Myer
 
 ## Lesson2-Scaling
 
-### Prerequisites & install
+### Prerequisites 
 
-edit hostfile
+- Edit hostfile for set the name server
 
 ```bash
 $ vim /etc/hosts
 ```
 
-edit hostname file and add hostname to the file
+- edit hostname file and add hostname to the file
 
+```bash
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	    localhost
+255.255.255.255	broadcasthost
+::1             localhost
+```
+- add the host name to this file
 ```
 127.0.0.1       employees.local
 ```
 
-command
 ```bash
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	    localhost
+255.255.255.255	broadcasthost
+::1             localhost
+127.0.0.1       employees.local
+```
+
+```to verify by ping employees.local```
+```bash
+$ ping employees.local
+```
+### Start service from lesson1
+
+```bash
+$ cd lesson2
 $ docker-compose up -d --build
 ```
-
-check host
+- check status services or logs
 ```bash
-curl employees.local
+$ docker-compose ps
 ```
 
-scale up server
+ex.
+```
+NAME                    IMAGE                    COMMAND                  SERVICE       CREATED        STATUS        PORTS
+lesson2-nginx-proxy-1   nginxproxy/nginx-proxy   "/app/docker-entrypo…"   nginx-proxy   27 hours ago   Up 27 hours   0.0.0.0:80->80/tcp
+lesson2-postgresdb-1    postgres:latest          "docker-entrypoint.s…"   postgresdb    27 hours ago   Up 27 hours   0.0.0.0:5432->5432/tcp
+lesson2-redis-1         redis:latest             "docker-entrypoint.s…"   redis         27 hours ago   Up 27 hours   0.0.0.0:65374->6379/tcp
+lesson2-webapp-1        lesson2-webapp           "docker-entrypoint.s…"   webapp        27 hours ago   Up 27 hours   0.0.0.0:65375->3000/tcp
+pgadmin4_container      dpage/pgadmin4           "/entrypoint.sh"         pgadmin       27 hours ago   Up 27 hours   443/tcp, 0.0.0.0:8888->80/tcp
+```
+
+
+Note: if it's fail or cannot start service you can use this command for check the logs
+```bash
+$ docker-compose logs -f --tail 100
+```
+
+- Nexts, open web brower to check the status service
+```
+http://employess.local
+```
+
+- Or, curl command
+```bash
+$ curl http://employess.local
+```
+```should see the status 200 ok and hostname that is container id```
+
+ex.
+```
+{"status":"OK","hostname":"3d99b5c8fc27"}
+```
+
+
+
+#### For Test scale up services and verify
+- scale service up to 3
 ```bash
 $ docker-compose up -d --build --scale webapp=3
 ```
-check host
-```bash
-curl employees.local
-```
+```should see the status 200 ok and hostname that is container id randomly```
+
+
 
 
 
