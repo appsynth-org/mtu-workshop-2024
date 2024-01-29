@@ -132,7 +132,7 @@ http://employess.local
 
 - Or, curl command
 ```bash
-$ while true; do sleep 1; curl employees.local ;echo; done
+$ while true; do sleep 1; curl employees.local; echo; done
 ```
 
 ```should see the status 200 ok and hostname that is container id randomly```
