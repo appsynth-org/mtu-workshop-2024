@@ -125,8 +125,23 @@ ex.
 ```bash
 $ docker-compose up -d --build --scale webapp=3
 ```
-```should see the status 200 ok and hostname that is container id randomly```
+- Next, open web brower to check the status service
+```
+http://employess.local
+```
 
+- Or, curl command
+```bash
+$ while true; do sleep 1; curl employees.local ;echo; done
+```
+
+```should see the status 200 ok and hostname that is container id randomly```
+ex.
+```
+{"status":"OK","hostname":"3d99b5c8fc27"}
+{"status":"OK","hostname":"bd6189f94392"}
+{"status":"OK","hostname":"a3fbce0a6f7d"}
+```
 
 
 
