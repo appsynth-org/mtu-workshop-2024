@@ -57,7 +57,8 @@ This guide will walk you through the process of installing Docker on a Windows o
      ```
 
 4. **Install a Linux Distribution from Microsoft Store:**
-   - Open Microsoft Store and search for your preferred Linux distribution (e.g., Ubuntu, Debian).
+   - Open Microsoft Store and search for your preferred Linux distribution (e.g., Ubuntu, Debian). 
+   - We recommend Ubnutu22.04
    - Click "Install" to download and install the distribution.
 
 5. **Set Up and Configure Linux Distribution:**
@@ -119,14 +120,6 @@ This guide will walk you through the process of installing Docker on a macOS sys
      docker --version
      docker run hello-world
      ```
-
-## Setting up a Linux-like Environment using WSL 2 (Optional)
-
-### Prerequisites:
-- This step is specific to Windows, and macOS users can skip this section.
-
-### Note:
-- macOS has native support for running a Unix-like environment.
 
 ## Installing Visual Studio Code (VSCode) on macOS
 
