@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan')
 const publicRoutes = require('./routes/publicRoutes')
 const employeeRoutes = require('./routes/employeeRoutes')
 const employeeCachedRoutes = require('./routes/employeeCachedRoutes')
@@ -12,6 +13,7 @@ async function startServer() {
     await initDatabase();
     await initCacheDatabase();
 
+    app.use(morgan('combined'))
     app.use(express.json());
 
     app.use('/', publicRoutes());
