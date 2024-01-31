@@ -92,7 +92,7 @@ You should retrieve data similar like this:
 {"id":5454,"name":"Dylan Snyder","position":"Network Operator","department":"ceuv","phone_number":"(300) 391-4338","employee_type":"Freelance","join_date":"2019-05-22T00:00:00.000Z","is_resigned":false}%
 ```
 
-And then, we will only use the API to get the list of employees, filtering some data based on fields in the table (`employees`, `/src/dbInit.js`).
+And then, we will only use the API to get the list of employees, filtering some database on fields in the table (`employees`, `/src/dbInit.js`).
 ```bash
 curl -o /dev/null -s -w 'Total: %{time_total}s\n' --location 'http://localhost:3000/api/employees?position=Network%Operator'
 ```
