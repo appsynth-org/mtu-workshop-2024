@@ -10,7 +10,7 @@ PS. This project was created by ChatGPT.
 
 ## Clone the init project from Github
 ```bash
-git clone https://github.com/mtu-workshop-2024.git
+git clone https://github.com/appsynth-org/mtu-workshop-2024.git
 cd lesson1
 docker-compose up -d --build
 ```
