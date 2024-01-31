@@ -5,6 +5,10 @@ const client = getClient();
 exports.getEmployees = async (req, res) => {
   const cacheKey = req.originalUrl
   const { page, pageSize } = req.query;
+  const filter = { ...req.query }
+
+  delete filter.page
+  delete filter.pageSize
 
   try {
     const data = await client.get(cacheKey);
@@ -12,7 +16,7 @@ exports.getEmployees = async (req, res) => {
       return res.json(JSON.parse(data));
     }
 
-    const employees = await EmployeeModel.getAllEmployees(page, pageSize);
+    const employees = await EmployeeModel.getAllEmployees(page, pageSize, filter);
     client.setEx(cacheKey, 60, JSON.stringify(employees));
     return res.json(employees);
   } catch (error) {
