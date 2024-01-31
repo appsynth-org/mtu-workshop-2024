@@ -118,10 +118,11 @@ We have included **pgAdmin** in the docker-compose. You just have to open a brow
 After we logged-in, we have to adding a new server, please follow steps below.
 
 ### Adding new server on pgAdmin:
-1. Click menu `Object` > `Register` > `Server...`
-2. In General tab, We need to enter server name, we will use `Docker PG`
-3. Navigate to Connection tab
-4. Enter data follow as
+1. Locking and click `Add New Server` on Quick Links section. (Or click the Servers on left-hand side, then, click menu `Object` > `Register` > `Server...`)
+2. A dialog named `Register - Server` should show up
+3. In General tab, We need to enter server name, we will use `Docker PG`
+4. Navigate to Connection tab
+5. Enter data follow as
    - Host name/address: `postgresdb`
    - Port: `5432` (default)
    - Maintenance database: `employees`
@@ -129,9 +130,9 @@ After we logged-in, we have to adding a new server, please follow steps below.
    - Kerberos authentication: `false` (default)
    - Password: `123456`
    - Save password?: `true` 
-5. Click `Save`
-6. On the left-hand side, you will see the `Docker PG` appearing. Then, click to collapse `Docker PG` > `Databases` > `employees` > `Schemas (1)` > `Public` > `Table (1)`, and you will see the `employees` table there.
-7. Right click over the `employees` table, select `View/Edit Data` > `First 100 Rows`
+6. Click `Save`
+7. On the left-hand side, you will see the `Docker PG` appearing. Then, click to collapse `Docker PG` > `Databases` > `employees` > `Schemas (1)` > `Public` > `Table (1)`, and you will see the `employees` table there.
+8. Right click over the `employees` table, select `View/Edit Data` > `First 100 Rows`
 
 At this point, you can now view the data in the database and freely use SQL commands.
 
