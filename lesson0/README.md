@@ -1,3 +1,5 @@
+if You using macOS click this link [MacOS section](https://gist.github.com/Lupin-Appsynth/3a29282feae9c61db4e0764cad51bfe7#setting-up-a-linux-distribution-on-windows-using-wsl-2)
+
 # Docker Installation, Linux Setup, and VSCode Installation on Windows
 
 This guide will walk you through the process of installing Docker on a Windows operating system, setting up a Linux distribution using Windows Subsystem for Linux (WSL) 2, and installing Visual Studio Code (VSCode) for development.
