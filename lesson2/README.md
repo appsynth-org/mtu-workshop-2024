@@ -2,13 +2,15 @@
 
 ### Prerequisites 
 
-- Edit hostfile for set the name server
+Edit the Hosts File:
+
+Open the hosts file for editing.
 
 ```bash
 $ vim /etc/hosts
 ```
 
-- edit hostname file and add hostname to the file
+- Add the hostname employees.local to the file:
 
 ```bash
 # localhost is used to configure the loopback interface
@@ -18,7 +20,7 @@ $ vim /etc/hosts
 255.255.255.255	broadcasthost
 ::1             localhost
 ```
-- add the host name to this file
+- Your file should now include the following entries:
 ```
 127.0.0.1       employees.local
 ```
@@ -33,17 +35,23 @@ $ vim /etc/hosts
 127.0.0.1       employees.local
 ```
 
-```to verify by ping employees.local```
+Verify the Hostname:
+
+Test the new hostname using ping:
+
 ```bash
 $ ping employees.local
 ```
-### Start service from lesson1
+### Starting the Service from Lesson 1
+
+To start the service from the previous lesson:
 
 ```bash
 $ cd lesson2
 $ docker-compose up -d --build
 ```
-- check status services or logs
+- Check Service Status or Logs:
+- To view the status of the services or check logs, use:
 ```bash
 $ docker-compose ps
 ```
@@ -58,54 +66,43 @@ lesson2-webapp-1        lesson2-webapp           "docker-entrypoint.s…"   weba
 pgadmin4_container      dpage/pgadmin4           "/entrypoint.sh"         pgadmin       27 hours ago   Up 27 hours   443/tcp, 0.0.0.0:8888->80/tcp
 ```
 
+If you encounter issues starting the service, you can check the logs with:
 
-Note: if it's fail or cannot start service you can use this command for check the logs
 ```bash
 $ docker-compose logs -f --tail 100
 ```
 
-- Next, open web brower to check the status service
-```
-http://employess.local
-```
+- Accessing the Service:
 
-- Or, curl command
+Open a web browser and navigate to http://employees.local.
+Alternatively, use the curl command:
 ```bash
 $ curl http://employess.local
 ```
-```should see the status 200 ok and hostname that is container id```
+You should see a response like:
 
-ex.
-```
-{"status":"OK","hostname":"3d99b5c8fc27"}
-```
+``{"status":"OK","hostname":"[container id]"}.``
 
-#### For Test scale up services and verify
-- scale service up to 3
+
+#### Testing Service Scaling 
+To scale up the services and verify their performance:
+- Scale Up the Service:
+Increase the webapp service instances to 3:
 ```bash
 $ docker-compose up -d --build --scale webapp=3
 ```
-- Next, open web brower to check the status service
-```
-http://employess.local
-```
+Verify the Scaling:
 
-- Or, curl command
+- Revisit http://employees.local in your web browser.
+Or, continuously check the service using curl:
 ```bash
 $ while true; do sleep 1; curl employees.local; echo; done
 ```
 
-```should see the status 200 ok and hostname that is container id randomly```
+- should see the status 200 ok and hostname that is container id randomly
 
-ex.
 ```
-{"status":"OK","hostname":"3d99b5c8fc27"}
-{"status":"OK","hostname":"bd6189f94392"}
-{"status":"OK","hostname":"a3fbce0a6f7d"}
+{"status":"OK","hostname":"[container id 1]"}
+{"status":"OK","hostname":"[container id 2]"}
+{"status":"OK","hostname":"[container id 3]"}
 ```
-
-
-
-
-
-
