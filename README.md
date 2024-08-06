@@ -1,4 +1,4 @@
-# MTUxKU: Employee API
+# MTU: Employee API
 
 Please follow the step by step in each lesson's folders.
 - lesson 0: Prerequisites
